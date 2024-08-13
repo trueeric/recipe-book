@@ -3,6 +3,7 @@ import HomeView from '@/views/HomeView.vue'
 import FavoritesView from '@/views/FavoritesView.vue'
 import AddRecipeView from '@/views/AddRecipeView.vue'
 import RecipeView from '@/views/RecipeView.vue'
+import NotFoundView from '@/views/NotFoundView.vue'
 
 // base 可變更根目錄位置  * mydomain.com   mydomain.com/app
 const router = createRouter({
@@ -27,6 +28,11 @@ const router = createRouter({
       path: '/recipe/:id',
       name: 'recipe',
       component: RecipeView
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: NotFoundView
     },
 
   ]
