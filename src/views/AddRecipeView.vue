@@ -22,14 +22,14 @@ const description = ref('')
 
 const router = useRouter()
 const addRecipe = () => {
-  store.addRecipe({
+  const recipe = store.addRecipe({
     name: name.value,
     description: description.value
   })
   router.push({
     name: 'recipe',
     params: {
-      id: 18
+      id: recipe.id
     }
   })
 }

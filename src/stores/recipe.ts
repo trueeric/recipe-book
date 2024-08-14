@@ -1,29 +1,34 @@
-import { defineStore } from "pinia";
-import { ref } from "vue";
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
 
 interface Recipe {
-  id:string
-  name:string
+  id: string
+  name: string
   description: string
 }
 
 type NewRecipe = Omit<Recipe, 'id'>
 
-export const useRecipeStore =
-  defineStore("recipe",()=> {
-    const recipes=ref<Recipe[]>([])
+export const useRecipeStore = defineStore('recipe', () => {
+  const recipes = ref<Recipe[]>([])
 
-    const addRecipe=(recipe: NewRecipe) =>{
-      const newRecipe={
-        id:Date.now().toString(),
-        ...recipe
-      }
-
-      recipes.value.push(newRecipe)
-      return newRecipe
+  const addRecipe = (recipe: NewRecipe) => {
+    const newRecipe = {
+      id: Date.now().toString(),
+      ...recipe
     }
 
-    return {recipes, addRecipe}
-  })
+    recipes.value.push(newRecipe)
+    return newRecipe
+  }
 
+  const getRecipeById = (id: string) => recipes.value.find((recipe) => recipe.id === id)
 
+  const filteredRecipes = ((searchQuery:string) =>
+    recipes.value.filter((recipe) =>
+      recipe.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  )
+
+  return { recipes, addRecipe, getRecipeById, filteredRecipes }
+})
