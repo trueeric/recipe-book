@@ -12,6 +12,14 @@ type NewRecipe = Omit<Recipe, 'id'>
 export const useRecipeStore = defineStore('recipe', () => {
   const recipes = ref<Recipe[]>([])
 
+  const editRecipe = (updateRecipe: Recipe) => {
+    const index=recipes.value.findIndex((r) => r.id === updateRecipe.id)
+
+    if(index !== -1){
+      recipes.value[index] = updateRecipe
+    }
+  }
+
   const addRecipe = (recipe: NewRecipe) => {
     const newRecipe = {
       id: Date.now().toString(),
@@ -30,5 +38,5 @@ export const useRecipeStore = defineStore('recipe', () => {
     )
   )
 
-  return { recipes, addRecipe, getRecipeById, filteredRecipes }
+  return { recipes, addRecipe, getRecipeById, filteredRecipes, editRecipe }
 })
